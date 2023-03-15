@@ -28,7 +28,28 @@ while key != ESCAPE:
         cv2.rectangle(frame_viz, (x, y), (xb, yb), (0, 0, 255), 2)
         cv2.imshow("Frame", frame_viz)
         square = frame_viz[y:yb, x:xb]
-        # Проверка на ориентацию
+        square_viz = square.copy()
+        hsv = cv2.cvtColor(square, cv2.COLOR_BGR2HSV)
+        hsv = cv2.blur(hsv, (5, 5))
+        # for red
+        mask = cv2.inRange(hsv, (0, 29, 16), (59, 255, 255))
+        mask = cv2.erode(mask, None, iterations=2)
+        mask = cv2.dilate(mask, None, iterations=2)
+        cv2.imshow("Mask", mask)
+        contours = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+        contours = contours[1]
+        if len(contours):
+            contours = sorted(contours, key=cv2.contourArea, reverse=True)
+            print("AREA", cv2.contourArea(contours[0]))
+            cv2.drawContours(square_viz, contours, 0, (255, 0, 255), 3)
+            #cv2.imshow("Contours", square_viz)
+
+            (x, y, w, h) = cv2.boundingRect(contours[1])
+            cv2.rectangle(square_viz, (x, y), (x+w), (y+h), (0, 255, 0), 2)
+            cv2.imshow("Contours", square_viz)
+
+
+        '''# Проверка на ориентацию
         kernel = np.ones((5, 5), "uint8")
 
         vert = square[:, (square.shape[0] // 4) * 3:]
@@ -41,13 +62,13 @@ while key != ESCAPE:
         mask_hor = cv2.erode(cv2.inRange(hsv_hor, (0, 0, 100), (255, 255, 255)), kernel, iterations=7)
         cv2.imshow("mask_hor", mask_hor)
         print(np.sum(mask_vert), np.sum(mask_hor), "SUMS")
-        if np.sum(mask_vert) < 10000 and np.sum(mask_hor) < 10000:
+        if np.sum(mask_vert) < 180000 and  np.sum(mask_hor) < 180000:
             M = cv2.getRotationMatrix2D((square.shape[1] / 2, square.shape[0] / 2), 180, 1)
             square = cv2.warpAffine(square, M, (square.shape[1], square.shape[0]))
-        elif np.sum(mask_vert) < 10000 and np.sum(mask_hor) > 10000:
+        elif np.sum(mask_vert) < 180000 and np.sum(mask_hor) > 400000:
             M = cv2.getRotationMatrix2D((square.shape[1] / 2, square.shape[0] / 2), 90, 1)
             square = cv2.warpAffine(square, M, (square.shape[1], square.shape[0]))
-        elif np.sum(mask_vert) > 10000 and np.sum(mask_hor) < 10000:
+        elif np.sum(mask_vert) > 400000 and np.sum(mask_hor) < 180000:
             M = cv2.getRotationMatrix2D((square.shape[1] / 2, square.shape[0] / 2), -90, 1)
             square = cv2.warpAffine(square, M, (square.shape[1], square.shape[0]))
         cv2.imshow("square", square)
@@ -70,11 +91,11 @@ while key != ESCAPE:
         # for third
         hsv3 = cv2.cvtColor(third, cv2.COLOR_BGR2HSV)
         mask3 = cv2.inRange(hsv3, (0, 120, 0), (88, 255, 255))
-        cv2.imshow("THIRD", mask3)
+        cv2.imshow("THIRD", mask3)'''
 
-        print(np.sum(mask1), np.sum(mask2), np.sum(mask3))
-        if np.sum(mask1) > 200000 and np.sum(mask2) > 200000 and np.sum(mask3) > 200000:
-            print("YES")
+        #print(np.sum(mask1), np.sum(mask2), np.sum(mask3))
+        #if np.sum(mask1) > 200000 and np.sum(mask2) > 200000 and np.sum(mask3) > 200000:
+         #   print("YES")
             # actions of hub...
     key = cv2.waitKey(10)
 cv2.destroyAllWindows()

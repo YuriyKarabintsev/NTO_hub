@@ -13,6 +13,6 @@ while key != ESCAPE:
     cv2.imshow("Frame", frame)
     key = cv2.waitKey(10)
     if key == ord("f") or key == ord("F"):
-        cv2.imwrite(r"C:\Users\1\PycharmProjects\NTO_hub\images\\" + str(i) + ".jpg", frame)
+        cv2.imwrite(r"/home/user/PycharmProjects/NTO_hub/images/" + str(i) + ".jpg", frame)
         print("Foto made", i)
         i += 1

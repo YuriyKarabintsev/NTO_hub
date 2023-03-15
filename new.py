@@ -4,7 +4,7 @@ import xml.etree.ElementTree as pars
 
 import dlib
 
-dir = r"C:/Users/1/PycharmProjects/cx1"
+dir = r"/home/user/PycharmProjects/NTO_hub"
 images = []
 annots = [] # списки с координатами рамок, ограничивающих объекты
 ImgNameList = os.listdir(dir + "/images/") # просмотр файлов в какой-либо папке
@@ -39,7 +39,7 @@ options = dlib.simple_object_detector_training_options() # настройки о
 options.be_verbose = True # настройка получения отладочной информации
 detector = dlib.train_simple_object_detector(images, annots, options) # запуск детектора для тренировки
 # images и annots должны быть одинаковой длины
-detector.save("det_squares.svm")
+detector.save("det_squares1.svm")
 print("Detector saved")
 
 print(ImgNameList)
