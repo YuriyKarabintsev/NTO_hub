@@ -16,7 +16,7 @@ cv2.createTrackbar("maxr", "Trackbar", 0, 255, nothing)
 Background_img = cv2.imread("back_test.jpg")
 cv2.imshow("Trackbar", Background_img)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 frame_orig = cv2.imread(r"C:\Users\1\PycharmProjects\NTO_1\images\5ff97bc2-9ab2-470c-88cb-36d38f7dd8b6.jpg")
 ESCAPE = 27
 key = 1
