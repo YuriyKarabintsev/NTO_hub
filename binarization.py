@@ -24,7 +24,7 @@ key = 1
 while (key != ESCAPE):
 
     #ret, frame = cap.read()
-    frame = cv2.imread(r"C:\Users\uraka\PycharmProjects\NTO_hub\try.png")#frame_orig.copy()
+    frame = cv2.imread(r"C:\Users\uraka\PycharmProjects\NTO_hub\h2.PNG")#frame_orig.copy()
     cv2.imshow("frame", frame)
     minb = cv2.getTrackbarPos("minb", "Trackbar")
     ming = cv2.getTrackbarPos("ming", "Trackbar")
@@ -39,12 +39,16 @@ while (key != ESCAPE):
     cv2.imshow("Mask", mask)
     contours, hierarchy = cv2.findContours(mask, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
     contours = sorted(contours, key=cv2.contourArea)
-    for contour in contours:
-        print(cv2.contourArea(contour))
-        if cv2.contourArea(contour) < 2000:
-            cv2.drawContour(frame_viz, contour)
     frame_viz = frame.copy()
-    cv2.drawContours(frame_viz, contours, -1, (0, 255, 0), 0)
+    for contour in range(len(contours)):
+        print(cv2.contourArea(contours[contour]))
+        if 500 <= cv2.contourArea(contours[contour]) <= 2500:
+            print("OK")
+            (x, y, w, h) = cv2.boundingRect(contours[contour])
+            print(w, h)
+            if (w / h) < 1.4 and (h / w) < 1.4 and w < 200 and h < 200:
+                cv2.drawContours(frame_viz, contours[contour], -1, (255, 0, 0), 2)
+    #cv2.drawContours(frame_viz, contours, -1, (0, 255, 0), 0)
     cv2.imshow("Contours", frame_viz)
     key = cv2.waitKey(10)
 
