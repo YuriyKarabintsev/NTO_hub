@@ -13,7 +13,7 @@ while key != ESCAPE:
 
     cv2.imshow("Frame", frame)
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
-    thresh = cv2.inRange(hsv, (0, 0, 0), (255, 120, 58))
+    thresh = cv2.inRange(hsv, (0, 0, 0), (255, 255, 169))
     #cv2.imshow("HSV", hsv)
     contours, hierarchy = cv2.findContours(thresh.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     contours = sorted(contours, key=cv2.contourArea, reverse=True)

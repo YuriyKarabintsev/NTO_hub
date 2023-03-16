@@ -1,14 +1,15 @@
 import cv2
-import dlib
-import numpy as np
+#import dlib
+#import numpy as np
 
-model_detector1 = dlib.simple_object_detector("det_squares1.svm") # путь к детектору
-cam = cv2.VideoCapture(0)
+#model_detector1 = dlib.simple_object_detector("det_squares1.svm") # путь к детектору
+#cam = cv2.VideoCapture(0)
 
 key = 1
 ESCAPE = 27
 while key != ESCAPE:
-    ret, frame = cam.read()
+    #ret, frame = cam.read()
+    frame = cv2.imread("C:\Users\uraka\PycharmProjects\NTO_hub\hub1.py")
     frame_viz = frame.copy()
 
     cv2.imshow("Frame", frame)
