@@ -24,7 +24,7 @@ key = 1
 while (key != ESCAPE):
 
     #ret, frame = cap.read()
-    frame = cv2.imread(r"C:\Users\uraka\PycharmProjects\NTO_hub\h2.PNG")#frame_orig.copy()
+    frame = cv2.imread(r"C:\Users\uraka\PycharmProjects\NTO_hub\h3.PNG")#frame_orig.copy()
     cv2.imshow("frame", frame)
     minb = cv2.getTrackbarPos("minb", "Trackbar")
     ming = cv2.getTrackbarPos("ming", "Trackbar")
@@ -48,6 +48,7 @@ while (key != ESCAPE):
             print(w, h)
             if (w / h) < 1.4 and (h / w) < 1.4 and w < 200 and h < 200:
                 cv2.drawContours(frame_viz, contours[contour], -1, (255, 0, 0), 2)
+                cv2.rectangle(frame_viz, (x, y), (x+w, y+h), (0, 0, 255), 2)
     #cv2.drawContours(frame_viz, contours, -1, (0, 255, 0), 0)
     cv2.imshow("Contours", frame_viz)
     key = cv2.waitKey(10)
