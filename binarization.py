@@ -46,7 +46,8 @@ while (key != ESCAPE):
             print("OK")
             (x, y, w, h) = cv2.boundingRect(contours[contour])
             print(w, h)
-            if (w / h) < 1.4 and (h / w) < 1.4 and w < 200 and h < 200:
+            print(np.sum(contours[contour][int(h*0.7):, int(w*0.7):]), "CORNER 1")
+            if (w / h) < 1.3 and (h / w) < 1.3 and w < 200 and h < 200:
                 cv2.drawContours(frame_viz, contours[contour], -1, (255, 0, 0), 2)
                 cv2.rectangle(frame_viz, (x, y), (x+w, y+h), (0, 0, 255), 2)
     #cv2.drawContours(frame_viz, contours, -1, (0, 255, 0), 0)
